@@ -8,18 +8,26 @@
       <div class="h1">
           <h1>叮当猫</h1>
       </div>
-     <button class="btn" id="btn0" onclick="cheerFetch(2)">抓取第一页</button></p>
-    <div class="container">
-     <!--<div class="jobs"> </div>-->
-     </div>
-     <div class="footer">
-     <p class="fetching">数据抓取中 ... 请稍后</p>
+     
+     <div class="header">
+         <p class="fetching">数据抓取中 ... 请稍后</p>
          <button class="btn" id="btn1" onclick="cheerFetch(--currentPage)">抓取上一页</button>
+         <button class="btn" id="btn0" onclick="cheerFetch(1)">抓取第一页</button></p>
          <button class="btn" id="btn2" onclick="cheerFetch(++currentPage)">抓取下一页</button>
+     </div>
+    <div class="container">
+      <!--   <div class="jobs">
+            <h2 id="title"></h2>
+            <img id="img" src="#">
+            <p id="jianjie"></p>
+            <a id="more" href="#"></a>
+        </div>
+         -->
+
      </div>
      <script type="text/javascript" src="javascripts/jquery-1.10.2.min.js"></script>
      <script type="text/javascript">
-     function getData(str){   //获取到的数据有杂乱..需要把前面部分去掉,只需要data（<em>......<em>  data)
+function getData(str){   //获取到的数据有杂乱..需要把前面部分去掉,只需要data（<em>......<em>  data)
          if(str){
          return str.slice(str.lastIndexOf(">")+1);
      }
@@ -44,6 +52,10 @@
          dataType: "json",
          type: "get",
          url: "/getJobs",
+         headers: {
+         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.11 Safari/537.36'
+         // 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko'
+         },
          success: function(data){   //收到返回的json数据
              console.log(data);
              var html = "";
@@ -51,12 +63,16 @@
              if(data.jobs.length == 0){ 
                  alert("Error2: 未找到数据..");
                  return;
-             }             for(var i=0;i<data.jobs.length;i++){   //遍历数据并提取处理
+             } 
+             for(var i=0;i<data.jobs.length;i++){   //遍历数据并提取处理
                 var job = data.jobs[i];
-                 html += "<div class='jobs'><p><span >文章标题：</span>  "+job.title+"</p>"+
-                 "</div>";
+                 html +=  "<div class='jobs'>"+
+                            "<h2 id='title'>" + job.title + "</h2>" +
+                            "<img id='img' src='"+ job.img +"'>" +
+                            "<p id='jianjie'>"+job.jianjie +"</p>" +
+                            "<a id='more' href='" +job.more +"'>阅读更多</a>" +
+                        "</div>";
              }
- 
              $(".container").append(html);  //展现至页面
              if(_page == 1){ 
                  document.getElementById("btn1").style.visibility = "hidden";
