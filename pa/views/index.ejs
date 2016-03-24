@@ -5,9 +5,10 @@
      <link rel='stylesheet' href='stylesheets/style.css' />
     </head>
     <body>
-      <h3>【nodejs爬虫】 获取拉勾网招聘岗位--前端开发</h3>
-     <p>初始化完成 ...</p>
-     <p><button class="btn" id="btn0" onclick="cheerFetch(1)">点击开始抓取第一页</button></p>
+      <div class="h1">
+          <h1>叮当猫</h1>
+      </div>
+     <button class="btn" id="btn0" onclick="cheerFetch(2)">抓取第一页</button></p>
     <div class="container">
      <!--<div class="jobs"> </div>-->
      </div>
@@ -52,16 +53,8 @@
                  return;
              }             for(var i=0;i<data.jobs.length;i++){   //遍历数据并提取处理
                 var job = data.jobs[i];
-                 html += "<div class='jobs'><p><span >岗位序号：</span>  "+((i+1)+15*(currentPage-1))+"</p>"+
-                 "<p>岗位名称：<a href='"+job.src+"'target='_blank'>"+job.name+"</a></p>"+
-                 "<p><span >岗位所在公司：</span>  "+job.company+"</p>"+
-                 "<p><span>公司阶段：</span>  "+getData(job.period)+"</p>"+
-                 "<p><span>岗位规模：</span>  "+getData(job.scale)+"</p>"+
-                 "<p><span>岗位所在城市：</span>  "+job.city+"</p>"+
-                 "<p><span>岗位薪资：</span>  "+getData(job.salary)+"</p>"+
-               "<p><span>岗位最低经验要求：</span>  "+getData(job.exp)+"</p>"+
-                 "<p><span>岗位发布时间：</span>  "+getData(job.time)+"</p>"+
-                 "</div>"
+                 html += "<div class='jobs'><p><span >文章标题：</span>  "+job.title+"</p>"+
+                 "</div>";
              }
  
              $(".container").append(html);  //展现至页面
